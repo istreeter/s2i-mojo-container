@@ -7,4 +7,4 @@
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
-exec perl -I./extlib/lib/perl5 -I./lib/perl5/ hypnotoad --foreground ./app.pl
+PERL5LIB=${PERL5LIB}:./extlib/lib/perl5:/opt/app-root/lib/perl5 /opt/app-root/bin/hypnotoad --foreground ./app.pl

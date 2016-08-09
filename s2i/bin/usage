@@ -5,8 +5,8 @@ To use it, install S2I: https://github.com/openshift/source-to-image
 
 Sample invocation:
 
-s2i build git://<source code> mojo-701-perl-516 <application image>
+s2i build git://github.com/istreeter/s2i-mojo-container.git --context-dir=test/test-app/ istreeter/mojo-701-perl-516 mojo-sample-app
 
 You can then run the resulting image via:
-docker run <application image>
+docker run -p 8080:8080 perl-sample-app
 EOF

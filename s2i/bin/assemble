@@ -37,5 +37,3 @@ else
 fi
 
 fix-permissions ./
-
-perl -I./extlib/lib/perl5 -I./lib/perl5/ hypnotoad scripts/app.pl

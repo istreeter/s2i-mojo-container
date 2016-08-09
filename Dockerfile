@@ -27,6 +27,7 @@ RUN yum install -y centos-release-scl && \
 # perl -I./extlib/lib/perl5 -I./lib/perl5/ hypnotoad scripts/app.pl
 
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
+COPY ./contrib/ /opt/app-root
 
 RUN chown -R 1001:1001 /opt/app-root
 
