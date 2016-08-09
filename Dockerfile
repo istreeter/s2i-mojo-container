@@ -13,14 +13,14 @@ LABEL io.k8s.description="Platform for building and running Mojolicious applicat
       io.openshift.tags="builder,perl,perl516,mojo,mojolicious,hypnotoad"
 
 RUN yum install -y centos-release-scl && \
-	INSTALL_PKGS="perl516 perl516-perl-core perl516-perl-CPANPLUS openssl" && \
+	INSTALL_PKGS="perl516 perl516-perl-core perl516-perl-CPANPLUS" && \
 	yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
 	rpm -V $INSTALL_PKGS && \
 	yum clean all && \
 	scl enable perl516 -- cpanp 's conf prereqs 1; s save system' && \
 	scl enable perl516 -- cpanp 's conf allow_build_interactivity 0; s save system' && \
 	curl -sSkL https://raw.githubusercontent.com/miyagawa/cpanminus/1.7102/cpanm |scl enable perl516 -- perl - App::cpanminus && \
-	scl enable perl516 -- cpanm -l /opt/app-root IO::Socket::SSL Mojolicious@7.01 && \
+	scl enable perl516 -- cpanm -l /opt/app-root Mojolicious@7.01 && \
         rm -rf /opt/app-root/src/.cpanm
 
 # My run script should end with:

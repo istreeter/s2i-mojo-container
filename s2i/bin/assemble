@@ -23,10 +23,28 @@ fi
 echo "---> Installing application source..."
 cp -Rf /tmp/src/. ./
 
-echo "---> Building application from source..."
-# TODO: Add build steps for your application, eg npm install, bundle install
+if [ -f "packages.txt" ]; then
+  echo "---> Installing modules from packages.txt ..."
+  INSTALL_PKGS=`cat packages.txt`
+  yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
+  rpm -V $INSTALL_PKGS && \
+  yum clean all
+else
+  echo "---> No packages.txt found, nothing to install"
+fi
 
-# Installing dependencies with cpanfile
+export CPAN_MIRROR=${CPAN_MIRROR:-""}
+MIRROR_ARGS=""
+if [ -n "$CPAN_MIRROR" ]; then
+  MIRROR_ARGS="--mirror $CPAN_MIRROR"
+fi
+
+if [ "${ENABLE_CPAN_TEST}" = true ]; then
+  export ENABLE_CPAN_TEST=""
+else
+  export ENABLE_CPAN_TEST="--notest"
+fi
+
 if [ -f "cpanfile" ]; then
   CPANM="./perl5/bin/cpanm"
   echo "---> Installing modules from cpanfile ..."
