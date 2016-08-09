@@ -7,4 +7,17 @@
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
-PERL5LIB=${PERL5LIB}:./extlib/lib/perl5:/opt/app-root/lib/perl5 /opt/app-root/bin/hypnotoad --foreground ./app.pl
+if [ ! -n "$MOJO_SCRIPT" ]; then
+for i in app.pl index.pl script/app.pl script/index.pl; do
+  test -f ${i} && MOJO_SCRIPT=${i} && break
+done
+fi
+
+if [ ! -n "$MOJO_SCRIPT" ]; then
+  echo "---> No perl script found. Try setting the MOJO_SCRIPT variable. Exiting...."
+  exit 1
+fi
+
+
+PERL5LIB=${PERL5LIB}:./extlib/lib/perl5:/opt/app-root/lib/perl5 \
+  /opt/app-root/bin/hypnotoad --foreground ${MOJO_SCRIPT}
