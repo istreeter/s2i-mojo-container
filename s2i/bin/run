@@ -7,9 +7,18 @@
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
+export PERL5LIB=${PERL5LIB}:./extlib/lib/perl5:/opt/app-root/lib/perl5 \
+
 if [ ! -n "$MOJO_SCRIPT" ]; then
 for i in app.pl index.pl script/app.pl script/index.pl; do
   test -f ${i} && MOJO_SCRIPT=${i} && break
+done
+fi
+
+if [ ! -n "$MOJO_SCRIPT" ]; then
+for i in `find bin script scripts . -type f -maxdepth 1 2>/dev/null`; do
+  echo "---> Testing if ${i} can be run with hypnotoad"
+  /opt/app-root/bin/hypnotoad --test ${i} 2>&1 && MOJO_SCRIPT=${i} && break
 done
 fi
 
@@ -18,6 +27,5 @@ if [ ! -n "$MOJO_SCRIPT" ]; then
   exit 1
 fi
 
-
-PERL5LIB=${PERL5LIB}:./extlib/lib/perl5:/opt/app-root/lib/perl5 \
-  /opt/app-root/bin/hypnotoad --foreground ${MOJO_SCRIPT}
+echo "---> Execute ${MOJO_SCRIPT} with hypnotoad"
+exec /opt/app-root/bin/hypnotoad --foreground ${MOJO_SCRIPT}

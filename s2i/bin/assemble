@@ -46,7 +46,7 @@ else
 fi
 
 if [ -f "cpanfile" ]; then
-  CPANM="./perl5/bin/cpanm"
+  CPANM="/opt/rh/perl516/root/usr/local/bin/cpanm"
   echo "---> Installing modules from cpanfile ..."
   perl $CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l extlib Module::CoreList
   perl -Iextlib/lib/perl5 $CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l extlib --installdeps .
