@@ -23,9 +23,6 @@ RUN yum install -y centos-release-scl && \
 	scl enable perl516 -- cpanm -l /opt/app-root Mojolicious@7.01 && \
         rm -rf /opt/app-root/src/.cpanm
 
-# My run script should end with:
-# perl -I./extlib/lib/perl5 -I./lib/perl5/ hypnotoad scripts/app.pl
-
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
 COPY ./contrib/ /opt/app-root
 
