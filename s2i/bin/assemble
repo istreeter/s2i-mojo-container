@@ -1,0 +1,41 @@
+#!/bin/bash -e
+#
+# S2I assemble script for the 'mojo-701-perl-516' image.
+# The 'assemble' script builds your application source so that it is ready to run.
+#
+# For more information refer to the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+if [[ "$1" == "-h" ]]; then
+	# If the 'mojo-701-perl-516' assemble script is executed with '-h' flag,
+	# print the usage.
+	exec /usr/libexec/s2i/usage
+fi
+
+# Restore artifacts from the previous build (if they exist).
+#
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+  echo "---> Restoring build artifacts..."
+  mv /tmp/artifacts/. ./
+fi
+
+echo "---> Installing application source..."
+cp -Rf /tmp/src/. ./
+
+echo "---> Building application from source..."
+# TODO: Add build steps for your application, eg npm install, bundle install
+
+# Installing dependencies with cpanfile
+if [ -f "cpanfile" ]; then
+  CPANM="./perl5/bin/cpanm"
+  echo "---> Installing modules from cpanfile ..."
+  perl $CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l extlib Module::CoreList
+  perl -Iextlib/lib/perl5 $CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l extlib --installdeps .
+else
+  echo "---> No cpanfile found, nothing to install"
+fi
+
+fix-permissions ./
+
+perl -I./extlib/lib/perl5 -I./lib/perl5/ hypnotoad scripts/app.pl
