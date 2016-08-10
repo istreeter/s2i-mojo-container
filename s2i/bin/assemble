@@ -25,13 +25,24 @@ echo "---> Installing application source..."
 mv /tmp/src/* ./
 
 if [ -f "packages.txt" ]; then
-  echo "---> Installing modules from packages.txt ..."
+  echo "---> Packages from packages.txt will be installed"
+  INSTALL_PKGS=`cat packages.txt`
+else
+  echo "---> No packages.txt found, nothing to install"
+fi
+if [ -n "$ENABLE_SSL" ]; then
+  echo "---> openssl package will be installed"
+  INSTALL_PKGS="$INSTALL_PKGS openssl"
+else
+  echo "---> ENABLE_SSL flag not set, not installing openssl"
+fi
+
+if [ -n "INSTALL_PKGS" ]
+  echo "---> Installing packages ..."
   INSTALL_PKGS=`cat packages.txt`
   yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
   rpm -V $INSTALL_PKGS && \
   yum clean all
-else
-  echo "---> No packages.txt found, nothing to install"
 fi
 
 export CPAN_MIRROR=${CPAN_MIRROR:-""}
