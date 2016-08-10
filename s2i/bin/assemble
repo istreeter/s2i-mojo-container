@@ -37,9 +37,8 @@ else
   echo "---> ENABLE_SSL flag not set, not installing openssl"
 fi
 
-if [ -n "INSTALL_PKGS" ]
+if [ -n "$INSTALL_PKGS" ]; then
   echo "---> Installing packages ..."
-  INSTALL_PKGS=`cat packages.txt`
   yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
   rpm -V $INSTALL_PKGS && \
   yum clean all
