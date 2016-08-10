@@ -13,6 +13,7 @@ if [[ "$1" == "-h" ]]; then
 	exec /usr/libexec/s2i/usage
 fi
 
+shopt -s dotglob
 # Restore artifacts from the previous build (if they exist).
 #
 if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
@@ -21,7 +22,7 @@ if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
 fi
 
 echo "---> Installing application source..."
-cp -Rf /tmp/src/. ./
+mv /tmp/src/* ./
 
 if [ -f "packages.txt" ]; then
   echo "---> Installing modules from packages.txt ..."
@@ -48,8 +49,8 @@ fi
 if [ -f "cpanfile" ]; then
   CPANM="/opt/rh/perl516/root/usr/local/bin/cpanm"
   echo "---> Installing modules from cpanfile ..."
-  perl $CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l extlib Module::CoreList
-  perl -Iextlib/lib/perl5 $CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l extlib --installdeps .
+  $CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l /opt/app-root --installdeps .
+  rm -rf /opt/app-root/src/.cpanm
 else
   echo "---> No cpanfile found, nothing to install"
 fi

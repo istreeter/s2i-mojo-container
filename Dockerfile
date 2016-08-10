@@ -16,6 +16,7 @@ RUN yum install -y centos-release-scl && \
 	INSTALL_PKGS="perl516 perl516-perl-core perl516-perl-CPANPLUS" && \
 	yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
 	rpm -V $INSTALL_PKGS && \
+        yum erase -y perl && \
 	yum clean all && \
 	scl enable perl516 -- cpanp 's conf prereqs 1; s save system' && \
 	scl enable perl516 -- cpanp 's conf allow_build_interactivity 0; s save system' && \
