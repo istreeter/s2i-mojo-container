@@ -24,26 +24,6 @@ fi
 echo "---> Installing application source..."
 mv /tmp/src/* ./
 
-if [ -f "packages.txt" ]; then
-  echo "---> Packages from packages.txt will be installed"
-  INSTALL_PKGS=`cat packages.txt`
-else
-  echo "---> No packages.txt found, nothing to install"
-fi
-if [ -n "$ENABLE_SSL" ]; then
-  echo "---> openssl package will be installed"
-  INSTALL_PKGS="$INSTALL_PKGS openssl"
-else
-  echo "---> ENABLE_SSL flag not set, not installing openssl"
-fi
-
-if [ -n "$INSTALL_PKGS" ]; then
-  echo "---> Installing packages ..."
-  yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
-  rpm -V $INSTALL_PKGS && \
-  yum clean all
-fi
-
 export CPAN_MIRROR=${CPAN_MIRROR:-""}
 MIRROR_ARGS=""
 if [ -n "$CPAN_MIRROR" ]; then
@@ -56,13 +36,21 @@ else
   export ENABLE_CPAN_TEST="--notest"
 fi
 
+CPANM="/opt/rh/perl516/root/usr/local/bin/cpanm"
 if [ -f "cpanfile" ]; then
-  CPANM="/opt/rh/perl516/root/usr/local/bin/cpanm"
   echo "---> Installing modules from cpanfile ..."
   $CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l /opt/app-root --installdeps .
-  rm -rf /opt/app-root/src/.cpanm
 else
   echo "---> No cpanfile found, nothing to install"
 fi
+
+if [ -f "Build.PL" ]; then
+  echo "---> Building from Build.PL"
+  export PERL5LIB=$HOME/lib:/opt/app-root/lib/perl5
+  perl Build.PL  && ./Build installdeps --cpan_client "$CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l /opt/app-root" && ./Build
+else
+  echo "---> No Build script found"
+fi
+  rm -rf /opt/app-root/src/.cpanm
 
 fix-permissions ./
