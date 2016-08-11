@@ -47,10 +47,12 @@ fi
 if [ -f "Build.PL" ]; then
   echo "---> Building from Build.PL"
   export PERL5LIB=$HOME/lib:/opt/app-root/lib/perl5
-  perl Build.PL  && ./Build installdeps --cpan_client "$CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l /opt/app-root" && ./Build
+  perl Build.PL \
+  && ./Build installdeps --cpan_client "$CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l /opt/app-root" \
+  && ./Build
 else
   echo "---> No Build script found"
 fi
-  rm -rf /opt/app-root/src/.cpanm
+rm -rf /opt/app-root/src/.cpanm
 
 fix-permissions ./

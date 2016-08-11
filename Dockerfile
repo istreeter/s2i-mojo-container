@@ -13,7 +13,7 @@ LABEL io.k8s.description="Platform for building and running Mojolicious applicat
       io.openshift.tags="builder,perl,perl516,mojo,mojolicious,hypnotoad"
 
 RUN yum install -y centos-release-scl && \
-	INSTALL_PKGS="perl516 perl516-perl-core perl516-perl-CPANPLUS" && \
+	INSTALL_PKGS="perl516 perl516-perl-core perl516-perl-CPANPLUS openssl" && \
 	yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
 	rpm -V $INSTALL_PKGS && \
         yum erase -y perl && \
