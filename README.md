@@ -33,8 +33,12 @@ Build the test application in this repo:
     $ s2i build git://github.com/istreeter/s2i-mojo-container --context-dir=test/test-app istreeter/mojo-701-perl-516 mojo-test-app
     $ Docker run -p 8080:8080 mojo-test-app
 
-Build the fastnotes [Mojolicious app from koorchik](https://github.com/koorchik/FastNotes-Proto.git)
+Build the fastnotes [Mojolicious app from koorchik](https://github.com/koorchik/FastNotes-Proto)
 
     $ s2i build git://github.com/koorchik/FastNotes-Proto.git mojo-701-perl-516 fastnotes-proto
     $ Docker run -p 8080:8080 fastnotes-proto
 
+Build the Ado [Mojolicious app from kberov](https://github.com/kberov/Ado), using Mojolicious version 6.66
+
+    $ s2i build git://github.com/kberov/Ado.git mojo-666-perl-516 ado
+    $ Docker run -p 8080:8080 ado
