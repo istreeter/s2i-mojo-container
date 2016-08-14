@@ -16,7 +16,7 @@ done
 fi
 
 if [ ! -n "$MOJO_SCRIPT" ]; then
-for i in `find bin script scripts . -type f -maxdepth 1 2>/dev/null`; do
+for i in `find bin script scripts . -maxdepth 1 -type f -and \( -executable -or -regex '.*\.pl' \) 2>/dev/null`; do
   echo "---> Testing if ${i} can be run with hypnotoad"
   /opt/app-root/bin/hypnotoad --test ${i} 2>&1 && MOJO_SCRIPT=${i} && break
 done

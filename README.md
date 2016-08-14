@@ -37,3 +37,4 @@ Build the fastnotes [Mojolicious app from koorchik](https://github.com/koorchik/
 
     $ s2i build git://github.com/koorchik/FastNotes-Proto.git mojo-701-perl-516 fastnotes-proto
     $ Docker run -p 8080:8080 fastnotes-proto
+
