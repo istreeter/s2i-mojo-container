@@ -42,3 +42,9 @@ Build the Ado [Mojolicious app from kberov](https://github.com/kberov/Ado), usin
 
     $ s2i build git://github.com/kberov/Ado.git mojo-666-perl-516 ado
     $ Docker run -p 8080:8080 ado
+
+Build the Photobooth [Mojolicious lite app from diegok](https://github.com/diegok/PhotoBooth)
+
+    $ s2i build https://github.com/diegok/PhotoBooth.git mojo-701-perl-516 photo-booth
+    $ Docker run -p 8080:8080 photo-booth
+
