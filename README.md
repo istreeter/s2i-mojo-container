@@ -48,3 +48,29 @@ Build the Photobooth [Mojolicious lite app from diegok](https://github.com/diego
     $ s2i build https://github.com/diegok/PhotoBooth.git mojo-701-perl-516 photo-booth
     $ Docker run -p 8080:8080 photo-booth
 
+## The assemble script
+
+The assemble script makes following things happen when you run "s2i build":
+
+1. Copies the application git repo to /opt/app-root/
+2. Installs dependencies listed in your cpanfile (if present)
+3. Builds the application from a Build.PL script (if present)
+
+Use the environment variable ENABLE\_CPAN\_TEST to test dependencies when they are installed. Use the environment variable CPAN\_MIRROR to set your preferred mirror. For example:
+
+    $ s2i build -e "ENABLE_CPAN_TEST=true" -e "CPAN_MIRROR=http://cpan.cpantesters.org/" <application-source> <base-image-name> <output-image-name>
+
+## The run script
+
+The run script runs hypnotoad on your application.
+
+Use the MOJO\_SCRIPT environment variable to tell the image the location of your script in your git repo. Either one of the following options will work:
+
+    $ s2i build -e "MOJO_SCRIPT=scripts/my_app.pl" <application-source> <base-image-name> <output-image-name>
+    $ Docker run -p 8080:8080 -e "MOJO_SCRIPT=scripts/my_app.pl" <image-name>
+
+If MOJO\_SCRIPT is not set, it will try to locate your application by testing. First, it looks for app.pl, index.pl, script/app.pl, script/index.pl.
+If it still hasn't found a script, it searches your repo directories bin, script, scripts, and "." for anything that is executable or has suffix ".pl". It tries to find anything that can be executed by hypnotoad
+
+Having found the application, it runs hypnotoad in the foreground
+
