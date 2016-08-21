@@ -2,7 +2,7 @@
 IMAGE_NAME = mojo-701-perl-516
 
 build:
-	docker build -t $(IMAGE_NAME) .
+	docker build -t $(IMAGE_NAME) -f Dockerfile.$(IMAGE_NAME) .
 
 .PHONY: test
 test:
