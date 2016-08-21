@@ -6,5 +6,5 @@ build:
 
 .PHONY: test
 test:
-	docker build -t $(IMAGE_NAME)-candidate .
+	docker build -t $(IMAGE_NAME)-candidate -f Dockerfile.$(IMAGE_NAME) .
 	IMAGE_NAME=$(IMAGE_NAME)-candidate test/run
