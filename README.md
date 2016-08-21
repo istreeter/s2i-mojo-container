@@ -60,6 +60,14 @@ Use the environment variable ENABLE\_CPAN\_TEST to test dependencies when they a
 
     $ s2i build -e "ENABLE_CPAN_TEST=true" -e "CPAN_MIRROR=http://cpan.cpantesters.org/" <application-source> <base-image-name> <output-image-name>
 
+## The base image
+
+1. Based on centos7
+2. Perl packages installed with yum
+3. openssl installed installed with yum
+4. Mojolicious, NET::SSLeay and IO::Socket::SSL installed from cpan
+5. User is non-root, for compatibility with openshift
+
 ## The run script
 
 The run script runs hypnotoad on your application.
@@ -74,3 +82,9 @@ If it still hasn't found a script, it searches your repo directories bin, script
 
 Having found the application, it runs hypnotoad in the foreground
 
+## Which version?
+
+Mojolicious developers occasionally make [breaking changes](https://github.com/kraih/mojo/blob/master/Changes) so different images are provided to support applications using different versions.
+
+The names of the images are mojo-{Mojolicious version}-perl-{perl version}. For example, the image mojo-701-perl-516 comes with [Mojolicious version 7.01](https://github.com/kraih/mojo/releases/tag/v7.01)
+and [Perl version 5.16](https://www.softwarecollections.org/en/scls/rhscl/perl516/)
