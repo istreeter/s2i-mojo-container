@@ -31,22 +31,22 @@ You will need the [S2I](https://github.com/openshift/source-to-image) standalone
 Build the test application in this repo:
 
     $ s2i build git://github.com/istreeter/s2i-mojo-container --context-dir=test/test-app istreeter/mojo-701-perl-516 mojo-test-app
-    $ Docker run -p 8080:8080 mojo-test-app
+    $ docker run -p 8080:8080 mojo-test-app
 
 Build the fastnotes [Mojolicious app from koorchik](https://github.com/koorchik/FastNotes-Proto)
 
     $ s2i build git://github.com/koorchik/FastNotes-Proto.git mojo-701-perl-516 fastnotes-proto
-    $ Docker run -p 8080:8080 fastnotes-proto
+    $ docker run -p 8080:8080 fastnotes-proto
 
 Build the Ado [Mojolicious app from kberov](https://github.com/kberov/Ado), using Mojolicious version 6.66
 
     $ s2i build git://github.com/kberov/Ado.git mojo-666-perl-516 ado
-    $ Docker run -p 8080:8080 ado
+    $ docker run -p 8080:8080 ado
 
 Build the Photobooth [Mojolicious lite app from diegok](https://github.com/diegok/PhotoBooth)
 
     $ s2i build https://github.com/diegok/PhotoBooth.git mojo-701-perl-516 photo-booth
-    $ Docker run -p 8080:8080 photo-booth
+    $ docker run -p 8080:8080 photo-booth
 
 ## The assemble script
 
@@ -75,7 +75,7 @@ The run script runs hypnotoad on your application.
 Use the MOJO\_SCRIPT environment variable to tell the image the location of your script in your git repo. Either one of the following options will work:
 
     $ s2i build -e "MOJO_SCRIPT=scripts/my_app.pl" <application-source> <base-image-name> <output-image-name>
-    $ Docker run -p 8080:8080 -e "MOJO_SCRIPT=scripts/my_app.pl" <image-name>
+    $ docker run -p 8080:8080 -e "MOJO_SCRIPT=scripts/my_app.pl" <image-name>
 
 If MOJO\_SCRIPT is not set, it will try to locate your application by testing. First, it looks for app.pl, index.pl, script/app.pl, script/index.pl.
 If it still hasn't found a script, it searches your repo directories bin, script, scripts, and "." for anything that is executable or has suffix ".pl". It tries to find anything that can be executed by hypnotoad
