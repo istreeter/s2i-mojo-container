@@ -7,8 +7,6 @@
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
-export PERL5LIB=$HOME/lib:/opt/app-root/lib/perl5 \
-
 if [ ! -n "$MOJO_SCRIPT" ]; then
 for i in app.pl index.pl script/app.pl script/index.pl; do
   test -f ${i} && MOJO_SCRIPT=${i} && break

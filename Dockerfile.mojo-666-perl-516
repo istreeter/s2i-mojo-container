@@ -5,7 +5,8 @@ MAINTAINER istreeter
 EXPOSE 8080
 
 ENV PERL_VERSION=5.16 \
-	PATH=$PATH:/opt/rh/perl516/root/usr/local/bin
+	PATH=$PATH:/opt/rh/perl516/root/usr/local/bin \
+	PERL5LIB=/opt/app-root/src/lib:/opt/app-root/usr/lib/perl5:/opt/app-root/lib/perl5
 
 LABEL io.k8s.description="Platform for building and running Mojolicious applications with Perl 5.16" \
       io.k8s.display-name="Hypnotoad 7.0.1" \
