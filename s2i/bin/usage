@@ -1,6 +1,6 @@
 #!/bin/bash -e
 cat <<EOF
-This is the mojo-701-perl-516 S2I image:
+This is the mojo-{version}-perl-{version} S2I image:
 To use it, install S2I: https://github.com/openshift/source-to-image
 
 Sample invocation:

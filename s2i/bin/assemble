@@ -1,6 +1,6 @@
 #!/bin/bash -e
 #
-# S2I assemble script for the 'mojo-701-perl-516' image.
+# S2I assemble script for the 'mojo-{version}-perl-{version}' images.
 # The 'assemble' script builds your application source so that it is ready to run.
 #
 # For more information refer to the documentation:
@@ -8,7 +8,7 @@
 #
 
 if [[ "$1" == "-h" ]]; then
-	# If the 'mojo-701-perl-516' assemble script is executed with '-h' flag,
+	# If the 'mojo-{version}-perl-{version}' assemble script is executed with '-h' flag,
 	# print the usage.
 	exec /usr/libexec/s2i/usage
 fi
@@ -36,10 +36,9 @@ else
   export ENABLE_CPAN_TEST="--notest"
 fi
 
-CPANM="/opt/rh/perl516/root/usr/local/bin/cpanm"
 if [ -f "cpanfile" ]; then
   echo "---> Installing modules from cpanfile ..."
-  $CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l /opt/app-root/usr --installdeps .
+  cpanm $MIRROR_ARGS $ENABLE_CPAN_TEST -l /opt/app-root/usr --installdeps .
 else
   echo "---> No cpanfile found, nothing to install"
 fi
