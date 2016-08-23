@@ -9,7 +9,7 @@ ENV PERL_VERSION=5.20 \
 	PERL5LIB=/opt/app-root/src/lib:/opt/app-root/usr/lib/perl5:/opt/app-root/lib/perl5
 
 LABEL io.k8s.description="Platform for building and running Mojolicious applications with Perl 5.20" \
-      io.k8s.display-name="Hypnotoad 6.66" \
+      io.k8s.display-name="Hypnotoad 7.01" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,perl,perl520,mojo,mojolicious,hypnotoad"
 
@@ -20,7 +20,7 @@ RUN yum install -y centos-release-scl && \
         yum erase -y perl && \
 	yum clean all && \
 	curl -sSkL https://raw.githubusercontent.com/miyagawa/cpanminus/1.7102/cpanm |scl enable rh-perl520 -- perl - App::cpanminus && \
-	scl enable rh-perl520 -- cpanm -l /opt/app-root Mojolicious@6.66 Net::SSLeay IO::Socket::SSL && \
+	scl enable rh-perl520 -- cpanm -l /opt/app-root Mojolicious@7.01 Net::SSLeay IO::Socket::SSL && \
         rm -rf /opt/app-root/src/.cpanm
 
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH

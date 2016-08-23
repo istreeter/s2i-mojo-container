@@ -46,7 +46,7 @@ fi
 if [ -f "Build.PL" ]; then
   echo "---> Building from Build.PL"
   perl Build.PL \
-  && ./Build installdeps --cpan_client "$CPANM $MIRROR_ARGS $ENABLE_CPAN_TEST -l /opt/app-root/usr" \
+  && ./Build installdeps --cpan_client "cpanm $MIRROR_ARGS $ENABLE_CPAN_TEST -l /opt/app-root/usr" \
   && ./Build
 else
   echo "---> No Build script found"

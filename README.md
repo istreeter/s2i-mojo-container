@@ -33,20 +33,20 @@ Build the test application in this repo:
     $ s2i build git://github.com/istreeter/s2i-mojo-container --context-dir=test/test-app istreeter/mojo-701-perl-516 mojo-test-app
     $ docker run -p 8080:8080 mojo-test-app
 
-Build the fastnotes [Mojolicious app from koorchik](https://github.com/koorchik/FastNotes-Proto)
-
-    $ s2i build git://github.com/koorchik/FastNotes-Proto.git mojo-701-perl-516 fastnotes-proto
-    $ docker run -p 8080:8080 fastnotes-proto
-
-Build the Ado [Mojolicious app from kberov](https://github.com/kberov/Ado), using Mojolicious version 6.66
-
-    $ s2i build git://github.com/kberov/Ado.git mojo-666-perl-516 ado
-    $ docker run -p 8080:8080 ado
-
 Build the Photobooth [Mojolicious lite app from diegok](https://github.com/diegok/PhotoBooth)
 
-    $ s2i build https://github.com/diegok/PhotoBooth.git mojo-701-perl-516 photo-booth
+    $ s2i build https://github.com/diegok/PhotoBooth.git istreeter/mojo-701-perl-516 photo-booth
     $ docker run -p 8080:8080 photo-booth
+
+Build the fastnotes [Mojolicious app from koorchik](https://github.com/koorchik/FastNotes-Proto)
+
+    $ s2i build git://github.com/koorchik/FastNotes-Proto.git istreeter/mojo-701-perl-516 fastnotes-proto
+    $ docker run -p 8080:8080 fastnotes-proto
+
+Build the Ado [Mojolicious app from kberov](https://github.com/kberov/Ado)
+
+    $ s2i build git://github.com/kberov/Ado.git istreeter/mojo-701-perl-516 ado
+    $ docker run -p 8080:8080 ado
 
 ## The assemble script
 
